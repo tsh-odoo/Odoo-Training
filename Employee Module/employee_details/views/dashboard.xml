@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- start For Displaying Employee Details -->
+        <record model="ir.actions.act_window" id="act_employee_list">
+            <field name="name">Employee</field>
+            <field name="res_model">employee.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- end For Displaying Employee Details -->
+
+        <!-- start For Displaying Education Details -->
+        <record model="ir.actions.act_window" id="act_employee_edu_list">
+            <field name="name">Employee</field>
+            <field name="res_model">employee.education.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- end For Displaying Education Details -->
+
+        <record model="ir.ui.view" id="board_form">
+            <field name="name">Dashboard Form</field>
+            <field name="model">board.board</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard">
+                    <board style="2-1">
+                        <column>
+                            <action
+                                string="Employees"
+                                name="%(act_employee_list)d"/>
+                        </column>
+                        <column>
+                            <action 
+                                string="Education Details"
+                                name="%(act_employee_edu_list)d"/>
+                        </column>
+                    </board>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="open_dashboard">
+          <field name="name">Employee Dashboard</field>
+          <field name="res_model">board.board</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="usage">menu</field>
+          <field name="view_id" ref="board_form"/>
+        </record>
+        <menuitem
+            name="Employee Dashboard" parent="employee_details.menu_root"
+            action="open_dashboard"
+            sequence="1"
+            id="menu_dashboard" icon="terp-graph"/>
+    </data>
+</odoo>

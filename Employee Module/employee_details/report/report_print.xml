@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_employee_details">
+        <t t-call="report.external_layout">
+            <div class="page">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table align="center" cellspacing= "60">
+                            <td>
+                                <h1><b><span t-field="doc.name"/> <span t-field="doc.last_name"/></b></h1>
+                               <p t-field="doc.street"/>
+                               <span t-field="doc.city"/>:<span t-field="doc.postal_code"/>,<br/>
+                               <span t-field="doc.state"/>,<span t-field="doc.country"/>
+                            </td>
+                        </table>
+                    </div>
+                </div>
+                <br/><br/>
+                <div class="row danger">
+                    <div class="col-xs-6">
+                        <h4><b>Pubilc    Information </b></h4>
+                        <table>
+                            <tr t-if="doc.dob">
+                                <td><strong>Birth Date:</strong></td>
+                                <td><p t-field="doc.dob"/></td>
+                            </tr>
+                            <tr t-if="doc.gender">
+                                <td><strong>Gender:</strong></td>
+                                <td><p t-field="doc.gender"/></td>
+                            </tr>
+                            <tr t-if="doc.email_id">
+                                <td width="5%"><strong>Email-ID:</strong></td>
+                                <td width="5%"><p t-field="doc.email_id"/></td>
+                            </tr>
+                            <tr t-if="doc.mobile">
+                                <td><strong>Mobile:</strong></td>
+                                <td><p t-field="doc.mobile"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="employee_details_report_template_view">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="employee_details.report_employee_details"/>
+            </t>
+        </t>
+    </template>
+</odoo>

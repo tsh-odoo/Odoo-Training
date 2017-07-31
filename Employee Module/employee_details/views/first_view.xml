@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <!-- Kanban view starts -->
+        <record model="ir.ui.view" id="employee_details.kanban_view">
+            <field name="name">employee_details.kandan</field>
+            <field name="model">employee.details</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <!-- <field name="image"/> -->
+                    <field name="name"/>
+                    <field name="last_name"/>
+                    <field name="dob"/>
+                    <field name="email_id" />
+                    <field name="mobile"/>
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_dropdown_kanban">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                            <li>
+                                                <ul class="oe_kanban_colorpicker"
+                                                    data-field="color"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('students.detail', 'image', record.id.value) " option="{size:[90,90]}"/>
+                                </div>
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-user"/>
+                                            <b>
+                                                <field name="name"/> 
+                                                <field name="last_name"/>
+                                            </b>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-birthday-cake" /> <field name="dob" />
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-envelope-o" /> <field name="email_id" />
+                                        </li>
+                                        <li><i class="fa fa-tablet"/>   <field name="mobile" /></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- Kanban view ends -->
+
+        <!-- Treeview starts -->
+        <record model="ir.ui.view" id="employee_details.tree_view">
+            <field name="name">employee_details.tree_view</field>
+            <field name="model">employee.details</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" placeholder="First Name"/>
+                    <!-- <separator string="last_name"/> -->
+                    <!-- <field name="last_name"/> -->
+                    <field name="gender"/>
+                    <field name="city"/>
+                    <field name="state"/>
+                    <!-- <field name="email_id"/> -->
+                    <field name="postal_code"/>
+                    <!-- <field name="mobile"/> -->
+                    <field name="country"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Treeview ends -->
+
+        <!-- Formview starts -->
+        <record model="ir.ui.view" id="employee_details.form_view">
+            <field name="name">employee_details.form</field>
+            <field name="model">employee.details</field>
+            <field name="arch" type="xml">
+                <form string="Employee Form">
+                    <header>
+                        <button name="action_deactive" string="Deactive" class="btn-primary" type="object" states="active"/>
+                        <button name="action_block" string="Block" class="btn-primary" type="object" states="deactive"/>
+                        <button name="action_active" string="Active" class="btn-primary" type="object" states="block"/>
+                        <field name="state" widget="statusbar" statusbar_visible="active,deactive,block"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" placeholder="First Name"/></h1>
+                        <group colspan="2" col="4">
+                            <!-- <separator string="last_name"/> -->
+                            <field name="last_name"/>
+                            <field name="street" string="Address"/>
+                            <field name="gender"/>
+                            <field name="city"/>
+                            <field name="dob" string="Date of Birth"/>
+                            <!-- <field name="state"/> -->
+                            <field name="email_id"/>
+                            <field name="postal_code"/>
+                            <field name="mobile"/>
+                            <field name="country"/>
+                        </group>
+                        <notebook>
+                            <page string='Education Details'>
+                                <field name="employee_edu_id"/>
+                            </page>
+                            <page string="Project Details">
+                                <field name="project_id" mode="kanban">
+                                    <kanban>
+                                        <field name="name"/>
+                                        <field name="project_detail"/>
+                                        <field name="color"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                                    <div class="oe_dropdown_kanban">
+                                                        <!-- dropdown menu -->
+                                                        <div class="oe_dropdown_toggle">
+                                                            <i class="fa fa-bars fa-lg"/>
+                                                            <ul class="oe_dropdown_menu">
+                                                                <li><a type="edit">Edit Task</a></li>
+                                                                <li>
+                                                                    <a type="delete">Delete</a>
+                                                                </li>
+                                                                <li>
+                                                                    <ul class="oe_kanban_colorpicker"
+                                                                        data-field="color"/>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="oe_clear"></div>
+                                                    </div>
+                                                    <div>
+                                                        <li><i class="fa fa-puzzle-piece"/><b> <field name="name"/></b></li>
+                                                    </div>
+                                                    <div>
+                                                        <field name="project_detail"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Formview ends -->
+
+        <record model="ir.actions.act_window" id="employee_details_action">
+            <field name="name">Employee Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+            <!--Employee Education Tree view starts -->
+        <record model='ir.ui.view' id='employee_educaiton_view_tree'>
+            <field name="name">employee.education.details.tree</field>
+            <field name="model">employee.education.details</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="degree"/>
+                    <field name="university_name"/>
+                    <field name="passing_year"/>
+                    <field name="percentage_cgpa"/>
+                </tree>
+            </field>
+        </record>
+                <!-- student eduline form view ends -->
+        <record id="employee_education_action" model="ir.actions.act_window">
+            <field name="name">Education Detail of Employee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.education.details</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Main Dashboard starts widget example starts -->
+        <record id="main_dashboard_1" model="ir.actions.client">
+            <field name="name">Main Dashboard</field>
+            <field name="tag">employee_details.main</field>
+        </record>
+        <!-- Main Dashboard starts widget example ends -->
+
+        <!-- Top Main Menu starts -->
+        <menuitem name="Employee Portal" id="employee_details.menu_root"/>
+        <!-- Top Main Menu ends -->
+
+        <!-- Employee details form view starts -->
+        <menuitem name="Menu" id="employee_details.menu1" parent="employee_details.menu_root"/>
+        <!-- Employee details form view ends -->
+
+        <!-- menu categories starts-->
+        <menuitem name="List1" id="employee_details.menu1_list" parent="employee_details.menu1" 
+            action="employee_details_action" sequence="1"/>
+        <!-- menu categories starts-->
+
+        <!-- Education Detail Menu starts -->
+        <!-- Education Detail Menu ends -->
+          
+        <!-- edu line view end -->
+        <menuitem id="employee_education_menu" action="employee_education_action" parent="employee_details.menu_root" name="Education" sequence="2"/>
+
+        <!-- Main Dashboard first widget example starts-->
+        <menuitem name="Main Dashboard" id="main_dashboard" action="main_dashboard_1" parent="employee_details.menu_root"/>
+        <!-- Main Dashboard first widget example starts-->
+
+    </data>
+</odoo>

@@ -1,0 +1,151 @@
+<odoo>
+    <data>
+        <template id="employee_list">
+            <t t-call="website.layout">
+                <div class="container">
+                    <div class="row">
+                        <t t-foreach="employees" t-as="employee">
+                            <div class="col-md-3 card" t-att-data-employee_id="employee.id">
+                                <h4><a t-att-href="'/employee_details/%s' % slug(employee)"><t t-esc="employee.name"/> <t t-esc="employee.last_name"/></a></h4>
+                                <t t-esc="employee.email_id"/>
+                                <div>
+                                    <button  t-att-data-employee_id="employee.id" class="show_details"><i class="fa fa-paper-plane"/>Details</button>
+                                    <button class="o_show_degree" data-toggle="dropdown" t-att-data-employee_id="employee.id" id="edit_employee"><i class="fa fa-graduation-cap"/>Show Degree</button>
+                                    <div class="details_placeholder dropdown-menu"></div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="info">
+            <t t-call="website.layout">
+                <div class="container data">
+                    <div class="container detail">
+                        <div class="jumbotron header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1>
+                                        <t t-esc="employee.name"/>
+                                    </h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1><b><t t-esc="employee.last_name"/></b></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                           <div class="row center o_outer" style="background-color:#e3e3e3;">
+                                <p><t t-esc="employee.email_id"/></p>
+                           </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Address</div>
+                                    <div class="panel-body">
+                                        <p t-field="employee.street"/>
+                                        <span t-field="employee.city"/>:<span t-field="employee.postal_code"/>,<br/>
+                                        <span t-field="employee.state"/>,<span t-field="employee.country"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 pdetails">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Personal Details</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <i class="fa fa-birthday-cake"/>
+                                                <b>Date-of-Birth: </b>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <t t-if="employee.dob" t-esc="employee.dob"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <i class="fa fa-tablet"/> <b>Mobile: </b>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <t t-esc="employee.mobile"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <t t-foreach="employee.project_id" t-as="project">
+                                    <div class="project_container">
+                                        <div class="col-md-4 p_card text-center">
+                                            <div class="front_face  o_outer">
+                                                <p class="fonts"><t t-esc="project.name"/></p>
+                                            </div>
+                                            <div class="back_face fonts  o_outer">
+                                                <label>Project Details:</label><t t-esc="project.project_detail"/><br/>
+                                                <label>Languages used:</label><t t-esc="','.join(map(lambda x: (x.name), project.languages))"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="center">
+                            <button t-att-data-employee_id="employee.id" id="edit_employee"><i class="fa fa-paper-plane"/>Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="employee_edit_form" name="Employee Edit Form">
+            <div class="container">
+                <div class="row">
+                    <form action="/employee_details/submit/" id="fill_form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="col-md-12">
+                            <input type="text" name="student_id" class="o_hidden" t-att-value="employee.id"/>
+                            <div class="form-group col-md-6">
+                                <label for="name">First Name</label>
+                                <input type="text" name="name" class="form-control" t-att-value="employee.name"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" name="last_name" class="form-control" t-att-value="employee.last_name"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="text" name="email_id" class="form-control" t-att-value="employee.email_id"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="mobile">Mobile</label>
+                                <input type="text" name="mobile" class="form-control" t-att-value="employee.mobile"/>
+                            </div>
+                            <div class="form-group col-md-6 input-append" id="datetimepicker4" >
+                                <label for="born_date">Date of Birth</label>
+                                <input data-format="mm-dd-yyyy" name="born_date" placeholder="MM/DD/YYYY" type="text" class="form-control" t-att-value="employee.dob"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="gender">Gender</label><br/>
+                                <select class="form-control" name="gender">
+                                  <option value="">-Select-</option>
+                                  <option value="male">Male</option>
+                                  <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                <div class="btn-group btn-group-devided">
+                                    <button type="submit" id="submit" class="btn btn-success o-emp-margin"><i class="fa fa-paper-plane"/>Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

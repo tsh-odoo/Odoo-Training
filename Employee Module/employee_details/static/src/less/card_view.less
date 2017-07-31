@@ -1,0 +1,107 @@
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+	transition: 0.5s;
+	margin : 15px 0px 0px 15px;
+	border-radius: 5px;
+	background-color: rgb(248, 248, 248);
+	padding-bottom: 10px;
+
+	&:hover {
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+	}
+}
+
+.container {
+	padding: 2px 16px;
+
+}
+.img{
+	padding:2px;
+	border-radius: 5px;
+}
+.header{
+	text-align:center;
+	background-color: rgb(52, 52, 52);
+	color: #fc7f0c;
+}
+.center{
+	text-align:center;
+}
+.row-card{
+	height:600px;
+}
+.detail{
+	padding: 0px;
+	box-shadow: 10px 10px 5px #888888;
+	border-radius: 0px
+}
+.pdetails{
+	padding-right: 20px;
+}
+.center{
+	 align:"center"
+}
+.tooltiptail {
+            display: block;
+            pointer-events: none;
+            margin-left: -31px;
+            margin-top: -10px;
+            position: absolute;
+            border-color: transparent rgb(52, 52, 52) transparent transparent;
+            background-color: transparent;
+            border-style: solid;
+            border-width: 10px;
+            width: 0px;
+            height: 8px;
+}
+.dropdown-menu{
+     background : rgb(52, 52, 52);
+     padding: 15px;
+     margin-left: 215px;
+     margin-top: -25px;
+}
+.p_card {
+	margin : 15px 0px 0px 15px;
+	background-color: rgb(52, 52, 52);
+  	transform-style: preserve-3d;
+  	transition: all 1.0s linear;
+  	.fonts {
+		color: rgb(213, 133, 18);
+	}
+
+
+}
+.project_container {
+  position: relative;
+  z-index: 1;
+}
+.project_container:hover #f1_card {
+  transform: rotateY(180deg);
+  box-shadow: -5px 5px 5px #aaa;
+}
+.project_container {
+	&:hover {
+		.p_card {
+			box-shadow: -5px 5px 5px #aaaaaa;
+			transform: rotateX(180deg);
+		}
+	}
+}
+.front_face{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+    backface-visibility: hidden;
+    z-index: 1;
+}
+.back_face{
+	display: block;
+	transform: rotateX(180deg);
+	box-sizing: border-box;
+	padding: 10px;
+	z-index: 2;
+}
+.o_outer{
+	margin-right: 0px;
+    margin-left: 0px;
+}

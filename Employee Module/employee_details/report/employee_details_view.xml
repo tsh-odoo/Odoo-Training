@@ -1,0 +1,10 @@
+<odoo>
+    <report
+        auto="False" 
+        id="employee_details.report_main" 
+        model="employee.details" 
+        name="employee_details.employee_details_report_template_view" 
+        file="employee_details.employee_details_report_template_view"
+        report_type="qweb-pdf"
+        string="Employee Profile" /> 
+</odoo>

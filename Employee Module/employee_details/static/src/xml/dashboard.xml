@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="DashboardMain">
+        <div>
+            <h1>Hello World with Widget Example</h1>
+        </div>
+        <hr/>
+        <div class="container">
+			<button id="plusbutton1" type="button" class="btn btn-default" aria-label="Plus">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</button>
+			<div class="add_template"/>
+        </div>
+    </t>
+    <t t-name="Subtemplate">
+	    <div class="container">
+	    	<div class="row ">
+				<div class="col-md-1 col-lg-1">
+					<button id="plusbutton2" type="button" class="btn btn-primary" aria-label="Plus">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="col-md-2 col-lg-2">
+					<input id="counter1" type="text" placeholder="0" aria-describedby="basic-addon1" value='0'/>
+				</div>
+				<div class="col-md-1 col-lg-1">
+					<button id="minusbutton2" type="button" class="btn btn-danger" aria-label="Minus">
+						<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="col-md-1 col-lg-1">
+					<button id="minusbutton1" type="button" class="btn btn-default" aria-label="Minus">
+						<span class="fa fa-trash" aria-hidden="true"></span>
+					</button>
+				</div>
+	        </div>
+	    </div>
+    </t>
+</templates>

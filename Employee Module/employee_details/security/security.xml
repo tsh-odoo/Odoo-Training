@@ -1,0 +1,21 @@
+<odoo>
+    <record id="manager" model="res.groups">
+        <field name="name">ReadPermission</field>
+    	<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Record Rule Requires when double level security is needed -->
+    
+    <!-- <record id="employee_rule1" model="ir.rule">
+        <field name="name">Employee Details Rule</field>
+        <field name="model_id" ref="employee_details.model_employee_details"/>
+        <field name="domain_force">['|',('company_id','child_of',[user.company_id.id]),('company_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('employee_details.manager'))]"/>
+    </record>
+    <record id="employee_rule2" model="ir.rule">
+        <field name="name">Employee Education Detail Rule</field>
+        <field name="model_id" ref="employee_details.model_employee_education_details"/>
+        <field name="domain_force">['|',('company_id','child_of',[user.company_id.id]),('company_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('employee_details.manager'))]"/>
+    </record> -->
+</odoo>
