@@ -5,7 +5,7 @@
 
         <!-- Kanban view starts -->
         <record model="ir.ui.view" id="employee_details.kanban_view">
-            <field name="name">employee_details.kandan</field>
+            <field name="name">employee_details.kanban</field>
             <field name="model">employee.details</field>
             <field name="arch" type="xml">
                 <kanban>
